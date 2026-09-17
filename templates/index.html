@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Octopalm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#home" class="logo-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo-img">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#new">New</a></li>
+            <li><a href="#popular">Popular</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+
+        <div class="nav-icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-bookmark"></i>
+        </div>
+    </nav>
+    <div class="title">
+        <h1><span class="highlight">OCTO</span>PALM</h1>
+    </div>
+    <div class="title2">
+        <h3>Designed to consult <span class="highlight">information</span> about anime</h3>
+    </div>
+    <div class="picking">
+        <h3>Select an Anime</h3>
+    </div>
+    <div class="carousel-wrapper">
+        <button class="nav-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+
+        <div class="card-container" id="card-container">
+            
+        </div>
+
+        <button class="nav-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    <script>
+        fetch('/api/anime')
+            .then(response => response.json())
+            .then(anime => {
+                const container = document.getElementById('card-container');
+                
+                anime.forEach(a => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <img src="${a.images.jpg.image_url}" alt="${a.title}" class="card-image">
+                        <div class="card-content">
+                            <h3>${a.title}</h3>
+                            <p class="card-type">${a.type}</p>
+                            <p class="card-episodes">Episodes: ${a.episodes}</p>
+                            <p class="card-score">⭐ ${a.score}</p>
+                            <p class="card-synopsis">${a.synopsis ? a.synopsis.substring(0, 100) + '...' : 'No synopsis'}</p>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+
+        const container = document.getElementById('card-container');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Scrolls left/right by roughly 4 card widths at a time
+        nextBtn.addEventListener('click', () => {
+            container.scrollBy({ left: 720, behavior: 'smooth' });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            container.scrollBy({ left: -720, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
