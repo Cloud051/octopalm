@@ -48,17 +48,27 @@
                 const container = document.getElementById('card-container');
                 
                 anime.forEach(a => {
+                    const displayTitle = a.title_english || a.title;
                     const card = document.createElement('div');
                     card.className = 'card';
                     card.innerHTML = `
-                        <img src="${a.images.jpg.image_url}" alt="${a.title}" class="card-image">
-                        <div class="card-content">
-                            <h3>${a.title}</h3>
-                            <p class="card-type">${a.type}</p>
-                            <p class="card-episodes">Episodes: ${a.episodes}</p>
-                            <p class="card-score">⭐ ${a.score}</p>
-                            <p class="card-synopsis">${a.synopsis ? a.synopsis.substring(0, 100) + '...' : 'No synopsis'}</p>
+                        <div class="card-poster">
+                            <img src="${a.images.jpg.image_url}" alt="${a.title}" class="card-image">
+                            <div class="card-overlay">
+                                <h4 class="overlay-title">${a.title}</h4>
+                                <div class="overlay-stats">
+                                    <span class="score_and_favorites">${a.score || 'N/A'} ★ (${a.favorites || 0})</span>
+                                </div>
+                                <div>
+                                    <span class="season">${a.season}</span>
+                                </div>
+                                <p class="overlay-synopsis">${a.synopsis ? a.synopsis.substring(0, 110) + '...' : 'No synopsis available.'}</p>
+                                <div class="overlay-actions">
+                                    <i class="fas fa-bookmark"></i>
+                                </div>
+                            </div>
                         </div>
+                        <div class="card-title">${a.title}</div>
                     `;
                     container.appendChild(card);
                 });
@@ -68,7 +78,7 @@
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
 
-        // Scrolls left/right by roughly 4 card widths at a time
+        // scrolls left/right by roughly 4 card widths at a time
         nextBtn.addEventListener('click', () => {
             container.scrollBy({ left: 720, behavior: 'smooth' });
         });
@@ -77,5 +87,23 @@
             container.scrollBy({ left: -720, behavior: 'smooth' });
         });
     </script>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-text">OCTOPALM</span>
+                <p>A nice option for tracking informetion about anime.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">New</a>
+                <a href="#">Popular</a>
+                <a href="#">About</a>
+                <a href="#">API Source</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 OCTOPALM. Powered by Jikan API & Flask.</p>
+        </div>
+    </footer>
 </body>
 </html>
