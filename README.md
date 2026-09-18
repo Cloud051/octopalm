@@ -9,7 +9,7 @@ A simple website to display information about anime.
 
 # Features
 
-**Requests Library**: Fetches data from APIs.
-**Flask Library**: Helps to connect backend to a frontend.
-**Data Manage**: A large amount of data is handled in the application.
-**Website**: Helps to display the data.
+- **Requests Library**: Fetches data from APIs.
+- **Flask Library**: Helps to connect backend to a frontend.
+- **Data Manage**: A large amount of data is handled in the application.
+- **Website**: Helps to display the data.
