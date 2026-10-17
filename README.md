@@ -13,3 +13,5 @@ A simple website to display information about anime.
 - **Flask Library**: Helps to connect backend to a frontend.
 - **Data Manage**: A large amount of data is handled in the application.
 - **Website**: Helps to display the data.
+
+# Test PR
